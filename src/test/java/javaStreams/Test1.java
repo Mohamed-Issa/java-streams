@@ -50,6 +50,13 @@ public class Test1 {
 
 		arrayList.stream().filter(s -> s.length() > 4).forEach(s -> System.out.println(s));
 		arrayList.stream().filter(s -> s.length() > 4).limit(1).forEach(s -> System.out.println(s));
+
+	}
+
+	@Test
+	public void streamMap() {
+		Stream.of("mohamed", "hamdy", "eissa", "hrr", "hww", "Rama").filter(s -> s.endsWith("a"))
+				.map(s -> s.toUpperCase()).forEach(s -> System.out.println(s));
 	}
 
 }
