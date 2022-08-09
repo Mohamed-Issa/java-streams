@@ -31,10 +31,21 @@ public class LiveDemo {
 
 		Assert.assertEquals(originalsNames, sortedList);
 
-		List<String> price = elements.stream().filter(s -> s.getText().contains("Beans")).map(s -> getPriceVeggie(s))
-				.collect(Collectors.toList());
+		List<String> price;
 
-		price.forEach(e -> System.out.println(e));
+		do {
+
+			List<WebElement> rows = driver.findElements(By.xpath("//tr//td[1]"));
+			price = rows.stream().filter(s -> s.getText().contains("Rice")).map(s -> getPriceVeggie(s))
+					.collect(Collectors.toList());
+
+			if (price.size() < 1) {
+				driver.findElement(By.cssSelector("[aria-label='Next']")).click();
+			}
+
+			price.forEach(e -> System.out.println(e));
+		} while (price.size() < 1);
+
 	}
 
 	private static String getPriceVeggie(WebElement s) {
