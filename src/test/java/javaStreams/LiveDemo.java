@@ -25,11 +25,21 @@ public class LiveDemo {
 
 		List<String> originalsNames = elements.stream().map(s -> s.getText()).collect(Collectors.toList());
 
-		List<String> sortedList = originalsNames .stream().sorted().collect(Collectors.toList());
+		List<String> sortedList = originalsNames.stream().sorted().collect(Collectors.toList());
 
 		sortedList.stream().forEach(s -> System.out.println(s));
 
 		Assert.assertEquals(originalsNames, sortedList);
+
+		List<String> price = elements.stream().filter(s -> s.getText().contains("Beans")).map(s -> getPriceVeggie(s))
+				.collect(Collectors.toList());
+
+		price.forEach(e -> System.out.println(e));
+	}
+
+	private static String getPriceVeggie(WebElement s) {
+		String price = s.findElement(By.xpath("following-sibling::td[1]")).getText();
+		return price;
 	}
 
 }
